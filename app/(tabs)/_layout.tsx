@@ -1,37 +1,33 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import ListeTacheScreen from '../(tabs)/ListeTacheScreen';
+import AjouterTacheScreen from '../(tabs)/AjouterTacheScreen';
+import {TabBarIcon} from '../../components/navigation/TabBarIcon'
 
-import { TabBarIcon } from '@/components/navigation/TabBarIcon';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
+const Tab = createBottomTabNavigator();
 
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
-
+export default function Layout() {
   return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-      }}>
-      <Tabs.Screen
-        name="index"
+    <Tab.Navigator>
+      <Tab.Screen
+        name="ListeTaches"
+        component={ListeTacheScreen}
         options={{
-          title: 'Home',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'home' : 'home-outline'} color={color} />
+          title: 'Liste des tâches',
+          tabBarIcon: ({ color, size }) => (
+            <TabBarIcon name="list" color={color} size={size} />
           ),
         }}
       />
-      <Tabs.Screen
-        name="explore"
+      <Tab.Screen
+        name="AjouterTache"
+        component={AjouterTacheScreen}
         options={{
-          title: 'Explore',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
+          title: 'Ajouter une tâche',
+          tabBarIcon: ({ color, size }) => (
+            <TabBarIcon name="add-circle" color={color} size={size} />
           ),
         }}
       />
-    </Tabs>
+    </Tab.Navigator>
   );
 }
